@@ -28,9 +28,12 @@ ingredients_list = st.multiselect(
 )
 
 if ingredients_list:
-    ingredients_string = (' ').join(ingredients_list)    
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-    fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
+    
+    for fruit in ingredients_list:
+        ingredients_string+= f'{fruit} '
+        st.subheader(f'{fruit} Nutrition Information')
+        fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{fruit}")
+        fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
 
     time_to_insert = st.button('Submit Order')
 
